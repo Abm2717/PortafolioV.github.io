@@ -1,4 +1,3 @@
-
 const API_URL = 'https://portfolio-api-three-black.vercel.app/api/v1';
 const ITSON_ID = '251914';
 
@@ -54,9 +53,10 @@ function createProjectCard(project) {
     const card = document.createElement('div');
     card.className = 'project-card';
 
-    const imageUrl = project.images && project.images.length > 0 
-        ? project.images[0] 
-        : 'https://via.placeholder.com/400x200/e3f2fd/0277bd?text=Proyecto';
+    let imageUrl = 'https://placehold.co/400x200/e3f2fd/0277bd?text=Proyecto';
+    if (project.images && Array.isArray(project.images) && project.images.length > 0) {
+        imageUrl = project.images[0];
+    }
 
     let technologies = [];
     if (typeof project.technologies === 'string') {
@@ -73,7 +73,7 @@ function createProjectCard(project) {
         <img src="${imageUrl}" 
              alt="${project.title}" 
              class="project-image"
-             onerror="this.src='https://via.placeholder.com/400x200/e3f2fd/0277bd?text=Proyecto'">
+             onerror="this.onerror=null; this.src='https://placehold.co/400x200/e3f2fd/0277bd?text=Sin+Imagen';">
         <div class="project-content">
             <h3 class="project-title">${project.title}</h3>
             <p class="project-description">${project.description}</p>
